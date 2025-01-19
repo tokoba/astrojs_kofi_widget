@@ -51,6 +51,6 @@ Feel free to check [our documentation](https://docs.astro.build) or jump into ou
 
 https://storage.ko-fi.com/cdn/scripts/overlay-widget.js
 
-## Screenshot
+## Screenshot 
 
 ![Screenshot](astrojs_load_external_javascript.png)
