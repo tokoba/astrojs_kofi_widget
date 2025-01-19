@@ -1,22 +1,61 @@
+---
+// if you put the scripts here, Astrojs will process them as astro modules and
+// it should fail.
+---
+// use is:inline to prevent Astrojs interprets/processes the following scripts.
+// we just want to insert the following script section as it is.
+// see: https://docs.astro.build/en/guides/client-side-scripts/
+<script is:inline>
+  // load external javascript file
+  async function loadKofiScript() {
+    return new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = 'https://storage.ko-fi.com/cdn/scripts/overlay-widget.js';
+      script.onload = () => {
+        // wait for resolve the load request from external url
+        resolve(window.kofiWidgetOverlay); 
+      };
+      script.onerror = () => {
+        reject(new Error('Failed to load Kofi script'));
+      };
+      document.head.appendChild(script);
+    });
+  }
+
+  // after loading external javascript, then ...
+  loadKofiScript().then(kofiWidgetOverlay => {
+    if (kofiWidgetOverlay) {
+      kofiWidgetOverlay.draw('helloWorld', {
+        'type': 'floating-chat',
+        'floating-chat.donateButton.text': 'Support me',
+        'floating-chat.donateButton.background-color': '#00b9fe',
+        'floating-chat.donateButton.text-color': '#fff'
+      });
+    }
+  }).catch(error => {
+    console.error('Error loading Kofi script:', error);
+  });
+</script>
+
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="generator" content={Astro.generator} />
+        <title>Astro Basics</title>
+    </head>
+    <body>
+        <slot />
+    </body>
 </html>
 
 <style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
+    html,
+    body {
+        margin: 0;
+        width: 100%;
+        height: 100%;
+    }
 </style>
