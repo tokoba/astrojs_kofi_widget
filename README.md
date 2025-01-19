@@ -53,4 +53,4 @@ https://storage.ko-fi.com/cdn/scripts/overlay-widget.js
 
 ## Screenshot 
 
-![Screenshot](astrojs_load_external_javascript.png)
+
